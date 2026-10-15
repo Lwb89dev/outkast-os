@@ -1,0 +1,745 @@
+/*
+ * Outkast — GTK 4 / libadwaita
+ *
+ * Mezzanotte piatta (o carta, con lo schema chiaro), filetti da 1px invece di ombre, un solo colore
+ * segnale. Il monospace compare solo dove c'è un'informazione tecnica: titoli delle barre, didascalie,
+ * tasti, suggerimenti. Il testo che si legge resta nel font di sistema.
+ *
+ * Chiaro e scuro seguono lo schema di sistema (@media prefers-color-scheme).
+ *
+ * Le app libadwaita ignorano il tema e leggono solo ~/.config/gtk-4.0/gtk.css: l'installer lo fa
+ * puntare a questo file. Priorità USER: batte libadwaita a prescindere dalla specificità, quindi
+ * qui bastano selettori semplici.
+ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   1. Palette — chiaro
+   ════════════════════════════════════════════════════════════════════════ */
+
+@define-color accent_bg_color {{L:accent}};
+@define-color accent_fg_color {{L:on}};
+@define-color accent_color {{L:accent}};
+@define-color destructive_bg_color {{L:red}};
+@define-color destructive_fg_color #ffffff;
+@define-color destructive_color {{L:red}};
+@define-color success_bg_color {{L:green}};
+@define-color success_fg_color #ffffff;
+@define-color success_color {{L:green}};
+@define-color warning_bg_color {{L:amber}};
+@define-color warning_fg_color #ffffff;
+@define-color warning_color {{L:amber}};
+@define-color error_bg_color {{L:red}};
+@define-color error_fg_color #ffffff;
+@define-color error_color {{L:red}};
+
+@define-color window_bg_color {{L:bg}};
+@define-color window_fg_color {{L:fg}};
+@define-color view_bg_color {{L:surface}};
+@define-color view_fg_color {{L:fg}};
+@define-color headerbar_bg_color {{L:bg}};
+@define-color headerbar_fg_color {{L:fg}};
+@define-color headerbar_border_color {{L:outline}};
+@define-color headerbar_backdrop_color {{L:bg}};
+@define-color headerbar_shade_color {{L:outline}};
+@define-color headerbar_darker_shade_color {{L:outline}};
+@define-color sidebar_bg_color {{L:raised}};
+@define-color sidebar_fg_color {{L:fg}};
+@define-color sidebar_backdrop_color {{L:raised}};
+@define-color sidebar_shade_color {{L:outline}};
+@define-color sidebar_border_color {{L:outline}};
+@define-color secondary_sidebar_bg_color {{L:sunken}};
+@define-color secondary_sidebar_fg_color {{L:fg}};
+@define-color secondary_sidebar_backdrop_color {{L:sunken}};
+@define-color secondary_sidebar_shade_color {{L:outline}};
+@define-color secondary_sidebar_border_color {{L:outline}};
+@define-color card_bg_color {{L:surface}};
+@define-color card_fg_color {{L:fg}};
+@define-color card_shade_color {{L:line}};
+@define-color dialog_bg_color {{L:bg}};
+@define-color dialog_fg_color {{L:fg}};
+@define-color popover_bg_color {{L:surface}};
+@define-color popover_fg_color {{L:fg}};
+@define-color popover_shade_color {{L:line}};
+@define-color thumbnail_bg_color {{L:surface}};
+@define-color thumbnail_fg_color {{L:fg}};
+@define-color shade_color {{L:line}};
+@define-color scrollbar_outline_color {{L:bg}};
+
+/* ── Palette — scuro ─────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  @define-color accent_bg_color {{D:accent}};
+  @define-color accent_fg_color {{D:on}};
+  @define-color accent_color {{D:accent}};
+  @define-color destructive_bg_color {{D:red}};
+  @define-color destructive_fg_color {{D:deep}};
+  @define-color destructive_color {{D:red}};
+  @define-color success_bg_color {{D:green}};
+  @define-color success_fg_color {{D:deep}};
+  @define-color success_color {{D:green}};
+  @define-color warning_bg_color {{D:amber}};
+  @define-color warning_fg_color {{D:deep}};
+  @define-color warning_color {{D:amber}};
+  @define-color error_bg_color {{D:red}};
+  @define-color error_fg_color {{D:deep}};
+  @define-color error_color {{D:red}};
+
+  @define-color window_bg_color {{D:bg}};
+  @define-color window_fg_color {{D:fg}};
+  @define-color view_bg_color {{D:bg}};
+  @define-color view_fg_color {{D:fg}};
+  @define-color headerbar_bg_color {{D:bg}};
+  @define-color headerbar_fg_color {{D:fg}};
+  @define-color headerbar_border_color {{D:outline}};
+  @define-color headerbar_backdrop_color {{D:bg}};
+  @define-color headerbar_shade_color {{D:outline}};
+  @define-color headerbar_darker_shade_color {{D:outline}};
+  @define-color sidebar_bg_color {{D:deep}};
+  @define-color sidebar_fg_color {{D:fg}};
+  @define-color sidebar_backdrop_color {{D:deep}};
+  @define-color sidebar_shade_color {{D:outline}};
+  @define-color sidebar_border_color {{D:outline}};
+  @define-color secondary_sidebar_bg_color {{D:sunken}};
+  @define-color secondary_sidebar_fg_color {{D:fg}};
+  @define-color secondary_sidebar_backdrop_color {{D:sunken}};
+  @define-color secondary_sidebar_shade_color {{D:outline}};
+  @define-color secondary_sidebar_border_color {{D:outline}};
+  @define-color card_bg_color {{D:surface}};
+  @define-color card_fg_color {{D:fg}};
+  @define-color card_shade_color {{D:line}};
+  @define-color dialog_bg_color {{D:surface}};
+  @define-color dialog_fg_color {{D:fg}};
+  @define-color popover_bg_color {{D:surface}};
+  @define-color popover_fg_color {{D:fg}};
+  @define-color popover_shade_color {{D:line}};
+  @define-color thumbnail_bg_color {{D:surface}};
+  @define-color thumbnail_fg_color {{D:fg}};
+  @define-color shade_color {{D:line}};
+  @define-color scrollbar_outline_color {{D:bg}};
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   2. Variabili di tema
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --window-radius: {{radius}}px;
+  --o-line: {{L:outline}};
+  --o-line-soft: {{L:line}};
+  --o-raised: {{L:raised}};
+  --o-sunken: {{L:sunken}};
+  --o-dim: {{L:fg3}};
+  --o-faint: {{L:fg4}};
+  --o-soft: {{L:soft}};
+  --o-frame: {{frame}}px;
+  --border-opacity: 14%;
+  --dim-opacity: 62%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --o-line: {{D:outline}};
+    --o-line-soft: {{D:line}};
+    --o-raised: {{D:raised}};
+    --o-sunken: {{D:sunken}};
+    --o-dim: {{D:fg3}};
+    --o-faint: {{D:fg4}};
+    --o-soft: {{D:soft}};
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   3. Finestre: un filetto, niente ombre
+   ════════════════════════════════════════════════════════════════════════ */
+
+window.csd {
+  box-shadow: 0 0 0 1px var(--o-line);
+  outline: none;
+}
+
+window.csd:backdrop {
+  box-shadow: 0 0 0 1px var(--o-line-soft);
+}
+
+window.csd.maximized,
+window.csd.fullscreen,
+window.csd.tiled,
+window.csd.tiled-top,
+window.csd.tiled-left,
+window.csd.tiled-right,
+window.csd.tiled-bottom {
+  box-shadow: none;
+}
+
+/* Dialoghi e avvisi: raggio del tema, stesso filetto */
+window.dialog.message.csd,
+window.messagedialog.csd,
+window.dialog-window.alert.csd {
+  border-radius: {{radius}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+dialog.alert sheet,
+dialog-host > dialog.alert sheet {
+  border-radius: {{radius}}px;
+}
+
+/* Foglietti sovrapposti (bottom sheet, floating sheet) */
+floating-sheet > sheet,
+bottom-sheet > sheet {
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   4. Barra del titolo e pulsanti finestra
+   ════════════════════════════════════════════════════════════════════════ */
+
+headerbar {
+  min-height: {{px:47}}px;
+  box-shadow: inset 0 -1px 0 var(--o-line);
+}
+
+headerbar:backdrop {
+  box-shadow: inset 0 -1px 0 var(--o-line-soft);
+}
+
+/* Barre "flat" dentro AdwToolbarView: nessun fondo proprio, il filetto lo dà il contenitore. */
+toolbarview > .top-bar headerbar,
+toolbarview > .top-bar .toolbar,
+headerbar.flat {
+  box-shadow: none;
+}
+
+toolbarview > .top-bar {
+  box-shadow: inset 0 -1px 0 var(--o-line);
+}
+
+toolbarview > .bottom-bar {
+  box-shadow: inset 0 1px 0 var(--o-line);
+}
+
+headerbar button.flat,
+headerbar button.image-button {
+  min-height: {{px:34}}px;
+  min-width: {{px:34}}px;
+}
+
+/*{{#mono}}*/
+/* Il titolo è un'etichetta tecnica: monospace, piccolo, appena spaziato. */
+headerbar windowtitle .title,
+headerbar .title {
+  font-family: {{mono}};
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+headerbar windowtitle .subtitle,
+headerbar .subtitle {
+  font-family: {{mono}};
+  font-size: 10px;
+  font-weight: 400;
+}
+/*{{/mono}}*/
+
+/* Pulsanti finestra: tre quadrati piatti con il simbolo; il rosso compare solo su "chiudi". */
+windowcontrols {
+  border-spacing: 2px;
+  padding: 0 2px;
+}
+
+windowcontrols > button {
+  min-width: 0;
+  min-height: 0;
+  padding: 3px;
+  margin: 0;
+}
+
+windowcontrols > button > image {
+  min-width: {{px:26}}px;
+  min-height: {{px:26}}px;
+  padding: 0;
+  border-radius: {{r}}px;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--o-dim);
+  transition: background-color {{ms:120}} ease, color {{ms:120}} ease;
+}
+
+windowcontrols > button:hover > image {
+  background-color: var(--o-raised);
+  color: currentColor;
+}
+
+windowcontrols > button.close:hover > image {
+  background-color: {{L:red}};
+  color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  windowcontrols > button.close:hover > image {
+    background-color: {{D:red}};
+    color: {{D:deep}};
+  }
+}
+
+windowcontrols > button:active > image {
+  background-color: var(--o-sunken);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   5. Pulsanti
+   ════════════════════════════════════════════════════════════════════════ */
+
+button {
+  border-radius: {{r}}px;
+  min-height: {{px:24}}px;
+  transition: background-color {{ms:120}} ease, color {{ms:120}} ease, box-shadow {{ms:120}} ease;
+}
+
+/* Un filetto attorno al fondo tenue; poi si toglie dove il pulsante ha già una forma sua. */
+button {
+  box-shadow: inset 0 0 0 1px var(--o-line);
+}
+
+button:hover {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 30%, transparent);
+}
+
+button:checked {
+  box-shadow: inset 0 0 0 1px var(--accent-bg-color);
+}
+
+button.flat,
+button.flat:hover,
+button.flat:checked,
+button.suggested-action,
+button.suggested-action:hover,
+button.suggested-action:checked,
+button.destructive-action,
+button.destructive-action:hover,
+button.osd,
+button.opaque,
+button.circular,
+button.link,
+windowcontrols > button,
+windowcontrols > button:hover,
+tabbar tab button,
+tabbar tab button:hover {
+  box-shadow: none;
+}
+
+/* Cerchi e pillole di libadwaita diventano quadrati con il raggio del tema. */
+button.circular,
+button.pill,
+menubutton.circular > button,
+menubutton.pill > button,
+menubutton.suggested-action.circular,
+menubutton.suggested-action.pill,
+menubutton.opaque.circular,
+menubutton.opaque.pill {
+  border-radius: {{r}}px;
+}
+
+button.suggested-action:hover {
+  background-color: color-mix(in srgb, var(--accent-bg-color) 88%, white);
+}
+
+splitbutton,
+menubutton.suggested-action,
+menubutton.opaque {
+  border-radius: {{r}}px;
+}
+
+/* Gruppi di pulsanti collegati: i filetti si toccano senza raddoppiare. */
+.linked > button:not(:first-child) {
+  margin-left: -1px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   6. Campi di testo
+   ════════════════════════════════════════════════════════════════════════ */
+
+entry,
+spinbutton,
+searchentry {
+  border-radius: {{r}}px;
+  min-height: {{px:34}}px;
+  background-color: color-mix(in srgb, currentColor 6%, transparent);
+  box-shadow: inset 0 0 0 1px var(--o-line);
+  transition: box-shadow {{ms:120}} ease, background-color {{ms:120}} ease;
+}
+
+entry:focus-within,
+spinbutton:focus-within,
+searchentry:focus-within {
+  background-color: color-mix(in srgb, currentColor 3%, transparent);
+  box-shadow: inset 0 0 0 {{frame}}px var(--accent-bg-color);
+  outline: none;
+}
+
+entry.flat,
+spinbutton.flat,
+row.spin spinbutton,
+row.spin spinbutton:focus-within,
+row entry.flat,
+row.entry entry {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+entry > text > selection,
+text > selection {
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
+}
+
+/* Il foco da tastiera è la cornice del segnale, non un alone sfumato. */
+*:focus-visible {
+  outline: {{frame}}px solid var(--accent-bg-color);
+  outline-offset: -{{frame}}px;
+}
+
+entry:focus-visible,
+spinbutton:focus-visible,
+searchentry:focus-visible {
+  outline: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   7. Liste, righe, barre laterali
+   ════════════════════════════════════════════════════════════════════════ */
+
+list.boxed-list,
+list.content,
+.card,
+frame {
+  border-radius: {{radius}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+list.boxed-list-separate > row,
+.card.activatable,
+menubutton.card > button {
+  border-radius: {{radius}}px;
+}
+
+list.boxed-list-separate > row {
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+/* Selezione: fondo tenue del segnale e una barra a sinistra. */
+row:selected,
+.view:selected,
+.view:selected:focus,
+iconview:selected,
+gridview > child:selected,
+flowbox > flowboxchild:selected,
+.navigation-sidebar > row:selected {
+  background-color: color-mix(in srgb, var(--accent-bg-color) 16%, transparent);
+  color: inherit;
+}
+
+row:selected,
+.navigation-sidebar > row:selected {
+  box-shadow: inset {{frame}}px 0 0 0 var(--accent-bg-color);
+}
+
+row:selected:focus-visible,
+.navigation-sidebar > row:selected:focus-visible {
+  outline: none;
+}
+
+row:selected image,
+.navigation-sidebar > row:selected image {
+  color: var(--accent-bg-color);
+}
+
+textview > text:selected,
+label > selection,
+selection {
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
+}
+
+.navigation-sidebar > row,
+.navigation-sidebar > child,
+.navigation-sidebar > flowboxchild,
+row,
+flowbox > flowboxchild,
+gridview > child,
+tabbar tabbox > tabboxchild,
+popover.menu modelbutton,
+popover.menu list > row,
+popover.menu listview > row,
+menubar > item,
+expander-widget > box > title,
+toggle-group {
+  border-radius: {{r}}px;
+}
+
+list.boxed-list > row,
+list.content > row {
+  border-radius: 0;
+}
+
+/* Titoli di sezione e didascalie: etichette tecniche */
+/*{{#mono}}*/
+.caption,
+.caption-heading,
+.numeric,
+.monospace,
+row.property > .header > .title + .subtitle,
+.dim-label.caption {
+  font-family: {{mono}};
+}
+
+.caption,
+.caption-heading {
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+
+.navigation-sidebar > row.heading,
+.sidebar-section-title,
+list.navigation-sidebar > separator + row.heading {
+  font-family: {{mono}};
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+/*{{/mono}}*/
+
+separator {
+  min-width: 1px;
+  min-height: 1px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   8. Interruttori, spunte, cursori, barre
+   ════════════════════════════════════════════════════════════════════════ */
+
+switch {
+  border-radius: {{r}}px;
+  background-color: var(--o-sunken);
+  box-shadow: inset 0 0 0 1px var(--o-line);
+}
+
+switch:checked {
+  background-color: var(--accent-bg-color);
+  box-shadow: inset 0 0 0 1px var(--accent-bg-color);
+}
+
+switch > slider {
+  border-radius: {{r}}px;
+  background-color: currentColor;
+  box-shadow: none;
+}
+
+switch:checked > slider {
+  background-color: var(--accent-fg-color);
+}
+
+check,
+checkbutton {
+  border-radius: {{r}}px;
+}
+
+check:checked,
+check:indeterminate {
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
+  box-shadow: none;
+}
+
+radio:checked {
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
+}
+
+scale > trough,
+scale > trough > fill,
+scale > trough > highlight,
+progressbar > trough,
+progressbar > trough > progress,
+levelbar.horizontal trough > block,
+levelbar.vertical trough > block,
+scrollbar > range > trough,
+scrollbar > range > trough > slider {
+  border-radius: 0;
+}
+
+scale > trough {
+  min-height: {{frame}}px;
+  background-color: var(--o-line);
+}
+
+scale.vertical > trough {
+  min-width: {{frame}}px;
+  min-height: 0;
+}
+
+scale > trough > highlight,
+scale > trough > fill {
+  background-color: var(--accent-bg-color);
+}
+
+scale > trough > slider {
+  border-radius: {{r}}px;
+  background-color: currentColor;
+  box-shadow: none;
+}
+
+progressbar > trough {
+  min-height: {{frame}}px;
+  background-color: var(--o-line);
+}
+
+progressbar > trough > progress {
+  background-color: var(--accent-bg-color);
+  min-height: {{frame}}px;
+}
+
+levelbar trough > block.filled {
+  background-color: var(--accent-bg-color);
+}
+
+levelbar trough > block.empty {
+  background-color: var(--o-line);
+}
+
+scrollbar > range > trough > slider {
+  background-color: var(--o-faint);
+}
+
+scrollbar > range > trough > slider:hover,
+scrollbar > range > trough > slider:active {
+  background-color: var(--accent-bg-color);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   9. Menu, popover, suggerimenti
+   ════════════════════════════════════════════════════════════════════════ */
+
+popover > contents,
+popover.menu > contents,
+menubar > item popover.menu popover.menu > contents {
+  border-radius: {{radius}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+popover > arrow {
+  background: transparent;
+  box-shadow: none;
+}
+
+popover.menu modelbutton:hover,
+popover.menu modelbutton:focus {
+  background-color: var(--o-raised);
+  box-shadow: inset {{frame}}px 0 0 0 var(--accent-bg-color);
+}
+
+tooltip {
+  border-radius: {{r}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 11px;/*{{/mono}}*/
+}
+
+tooltip > box {
+  padding: 4px 8px;
+}
+
+/* Tasti: monospace con un filetto, come un tasto vero */
+/*{{#mono}}*/
+shortcut .keycap,
+shortcut-label .keycap,
+.keycap {
+  font-family: {{mono}};
+  font-size: 11px;
+}
+/*{{/mono}}*/
+
+shortcut .keycap,
+shortcut-label .keycap {
+  border-radius: {{r}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   10. Schede, avvisi, notifiche interne
+   ════════════════════════════════════════════════════════════════════════ */
+
+tabbar tab,
+notebook > header > tabs > tab {
+  border-radius: 0;
+}
+
+tabbar tab:selected,
+notebook > header > tabs > tab:checked {
+  box-shadow: inset 0 -{{frame}}px 0 0 var(--accent-bg-color);
+}
+
+tabbar tab indicator,
+tabbar tabbox > revealer > indicator {
+  border-radius: 0;
+}
+
+/*{{#mono}}*/
+tabbar tab .title,
+tabbar tab label {
+  font-family: {{mono}};
+  font-size: 12px;
+}
+/*{{/mono}}*/
+
+toast,
+.app-notification {
+  border-radius: {{r}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+banner > revealer > widget {
+  box-shadow: none;
+}
+
+infobar {
+  border-radius: 0;
+}
+
+.osd,
+.toolbar.osd {
+  border-radius: {{r}}px;
+  box-shadow: 0 0 0 1px var(--o-line);
+}
+
+/* Gli avatar restano tondi: sono facce, non controlli. */
+avatar {
+  border-radius: 9999px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   11. Dettagli
+   ════════════════════════════════════════════════════════════════════════ */
+
+.accent {
+  color: var(--accent-bg-color);
+}
+
+.suggested-action label,
+.suggested-action image {
+  color: inherit;
+}
+
+calendar > grid > label.day-number:checked,
+calendar > grid > label.day-number:selected {
+  border-radius: {{r}}px;
+}
+
+emoji,
+popover.emoji-picker emoji {
+  border-radius: {{r}}px;
+}
+
+colorswatch,
+colorswatch > overlay {
+  border-radius: {{r}}px;
+}

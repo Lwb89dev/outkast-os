@@ -1,0 +1,7 @@
+/*
+ * Outkast — GTK 3 (variante scura, usata quando il sistema preferisce il tema scuro)
+ */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+@import url("adw-gtk3-dark.css");
+@import url("outkast-dark.css");
+@import url("outkast-common.css");

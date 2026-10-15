@@ -1,0 +1,25 @@
+#!/bin/sh
+# Apre le impostazioni di Outkast. È il comando della voce «Impostazioni di Outkast» nel menu delle app.
+#
+# Prima prova l'app Estensioni (`gnome-extensions prefs`), che è il percorso normale. La Shell però conosce
+# un'estensione solo dopo un nuovo accesso: finché non è caricata risponde «non esiste» (codice 2) e non apre nulla.
+# In quel caso si apre il pannello direttamente (prefs-standalone.js), che funziona comunque.
+DIR="$(cd "$(dirname "$0")" && pwd)"
+UUID="outkast-shell@outkast-os"
+
+if gnome-extensions prefs "$UUID" >/dev/null 2>&1; then
+    exit 0
+fi
+
+# ExtensionPreferences importa Shew, che sta nelle librerie della Shell (percorso diverso a seconda della distribuzione)
+for d in /usr/lib64/gnome-shell /usr/lib/gnome-shell /usr/lib/x86_64-linux-gnu/gnome-shell /usr/lib/aarch64-linux-gnu/gnome-shell; do
+    if [ -d "$d/girepository-1.0" ]; then
+        SHELL_LIB="$d"
+        break
+    fi
+done
+if [ -n "$SHELL_LIB" ]; then
+    export GI_TYPELIB_PATH="$SHELL_LIB/girepository-1.0${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
+    export LD_LIBRARY_PATH="$SHELL_LIB${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+fi
+exec gjs -m "$DIR/prefs-standalone.js" "$DIR"

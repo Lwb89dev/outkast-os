@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <enum id="org.gnome.shell.extensions.outkast-shell.accent">
+    <value nick="orange" value="0"/>
+    <value nick="gold" value="1"/>
+    <value nick="rose" value="2"/>
+    <value nick="blue" value="3"/>
+    <value nick="green" value="4"/>
+  </enum>
+
+  <enum id="org.gnome.shell.extensions.outkast-shell.orbit-portal">
+    <value nick="always" value="0"/>
+    <value nick="edge" value="1"/>
+    <value nick="hidden" value="2"/>
+    <value nick="smart" value="3"/>
+  </enum>
+
+  <schema id="org.gnome.shell.extensions.outkast-shell" path="/org/gnome/shell/extensions/outkast-shell/">
+
+    <!-- ── Barra superiore ────────────────────────────────────────────── -->
+    <key name="show-app-name" type="b">
+      <default>true</default>
+      <summary>Mostra il nome dell'app in primo piano accanto ai workspace</summary>
+    </key>
+
+    <!-- ── Palette (launcher) ─────────────────────────────────────────── -->
+    <key name="launcher-dim" type="i">
+      <default>55</default>
+      <range min="0" max="90"/>
+      <summary>Quanto si scurisce lo schermo dietro la palette (%)</summary>
+    </key>
+    <key name="block-activities" type="b">
+      <default>true</default>
+      <summary>Blocca Attività/Overview di GNOME: il tasto Super apre la palette</summary>
+    </key>
+
+    <!-- ── Orbit ──────────────────────────────────────────────────────── -->
+    <key name="orbit" type="b">
+      <default>true</default>
+      <summary>Orbit: il pannello di tessere che si tira su dal bordo inferiore</summary>
+    </key>
+    <key name="orbit-portal" enum="org.gnome.shell.extensions.outkast-shell.orbit-portal">
+      <default>'always'</default>
+      <summary>Il portale di Orbit: sempre visibile, nascosto se una finestra lo copre (smart), solo sul bordo inferiore (edge), o mai (hidden)</summary>
+    </key>
+    <key name="orbit-hover-open" type="b">
+      <default>false</default>
+      <summary>Orbit si apre da solo se il puntatore resta fermo un istante sul portale o sul bordo inferiore</summary>
+    </key>
+    <key name="orbit-gesture" type="b">
+      <default>true</default>
+      <summary>Tre dita in su sul touchpad o sullo schermo aprono Orbit (al posto della panoramica di GNOME)</summary>
+    </key>
+    <key name="orbit-shortcut" type="as">
+      <default>["&lt;Super&gt;o"]</default>
+      <summary>Scorciatoia che apre e chiude Orbit</summary>
+    </key>
+
+    <!-- ── Movimento ──────────────────────────────────────────────────── -->
+    <key name="motion" type="b">
+      <default>true</default>
+      <summary>Animazioni delle finestre in stile Outkast (entrano e escono dai bordi)</summary>
+    </key>
+    <key name="motion-speed" type="i">
+      <default>100</default>
+      <range min="5" max="250"/>
+      <summary>Velocità delle animazioni in percentuale (100 = normale, 200 = il doppio più veloci)</summary>
+    </key>
+    <key name="focus-frame" type="b">
+      <default>true</default>
+      <summary>Cornice sulla finestra attiva che si sposta da una finestra all'altra</summary>
+    </key>
+
+    <!-- ── Tema (rigenera i file CSS: vedi themegen.js) ───────────────── -->
+    <key name="accent" enum="org.gnome.shell.extensions.outkast-shell.accent">
+      <default>'orange'</default>
+      <summary>Colore segnale: arancio (marchio), oro, rosa, blu, verde</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>0</default>
+      <range min="0" max="16"/>
+      <summary>Raggio degli angoli delle finestre</summary>
+    </key>
+    <key name="control-radius" type="i">
+      <default>2</default>
+      <range min="0" max="12"/>
+      <summary>Raggio degli angoli di pulsanti e campi di testo</summary>
+    </key>
+    <key name="frame-width" type="i">
+      <default>2</default>
+      <range min="1" max="4"/>
+      <summary>Spessore della cornice dell'accento (finestra attiva, indicatori)</summary>
+    </key>
+    <key name="compact" type="b">
+      <default>true</default>
+      <summary>Spaziature strette (barre del titolo, pulsanti, righe)</summary>
+    </key>
+    <key name="mono-accents" type="b">
+      <default>true</default>
+      <summary>Monospace per le etichette tecniche (titoli, didascalie, orologio, workspace)</summary>
+    </key>
+    <key name="theme-animations" type="b">
+      <default>true</default>
+      <summary>Transizioni nelle app GTK e nella Shell</summary>
+    </key>
+    <key name="theme-serial" type="i">
+      <default>0</default>
+      <summary>Contatore interno: cambia quando il tema viene rigenerato, per ricaricare la Shell</summary>
+    </key>
+  </schema>
+</schemalist>

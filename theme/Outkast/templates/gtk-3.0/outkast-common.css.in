@@ -1,0 +1,309 @@
+/*
+ * Outkast — GTK 3, overlay comune a chiaro e scuro.
+ * Si appoggia sui colori nominati definiti in outkast-light.css / outkast-dark.css.
+ * GTK3 non ha variabili CSS né color-mix: qui si usano @colori, alpha() e mix().
+ * Stessa idea del tema GTK4: filetti al posto delle ombre, raggi del tema, segnale arancio solo dove serve.
+ */
+
+/* ── Finestre ─────────────────────────────────────────────────────────── */
+
+window.csd,
+window.csd.background,
+window.background.csd,
+window.csd.unified,
+window.csd.solid-csd {
+  border-radius: {{radius}}px {{radius}}px 0 0;
+}
+
+decoration {
+  border-radius: {{radius}}px {{radius}}px 0 0;
+  margin: 8px;                      /* zona trasparente per ridimensionare: nessuna ombra */
+  box-shadow: 0 0 0 1px @o_line;
+}
+
+decoration:backdrop {
+  box-shadow: 0 0 0 1px @o_line_soft;
+}
+
+.maximized decoration,
+.fullscreen decoration,
+.tiled decoration,
+.tiled-top decoration,
+.tiled-right decoration,
+.tiled-bottom decoration,
+.tiled-left decoration {
+  margin: 0;
+  box-shadow: none;
+}
+
+/* ── Barra del titolo ─────────────────────────────────────────────────── */
+
+headerbar,
+.titlebar:not(headerbar) {
+  min-height: {{px:46}}px;
+  background-image: none;
+  box-shadow: inset 0 -1px @o_line;
+}
+
+headerbar:backdrop,
+.titlebar:backdrop:not(headerbar) {
+  box-shadow: inset 0 -1px @o_line_soft;
+}
+
+/*{{#mono}}*/
+headerbar .title,
+.titlebar .title {
+  font-family: {{mono}};
+  font-size: 12px;
+  font-weight: 500;
+}
+
+headerbar .subtitle,
+.titlebar .subtitle {
+  font-family: {{mono}};
+  font-size: 10px;
+  font-weight: 400;
+}
+/*{{/mono}}*/
+
+/* Pulsanti finestra: tre quadrati piatti; il rosso solo su "chiudi". */
+headerbar button.titlebutton:not(.appmenu),
+.titlebar button.titlebutton:not(.appmenu) {
+  min-width: {{px:26}}px;
+  min-height: {{px:26}}px;
+  margin: 0 1px;
+  padding: 0;
+  border: none;
+  border-radius: {{r}}px;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  color: @o_dim;
+}
+
+headerbar button.titlebutton:not(.appmenu):hover,
+.titlebar button.titlebutton:not(.appmenu):hover {
+  background-color: @o_raised;
+  color: @window_fg_color;
+}
+
+headerbar button.titlebutton.close:not(.appmenu):hover,
+.titlebar button.titlebutton.close:not(.appmenu):hover {
+  background-color: @o_red;
+  color: @o_red_fg;
+}
+
+/* ── Pulsanti ─────────────────────────────────────────────────────────── */
+
+button {
+  border-radius: {{r}}px;
+  min-height: {{px:24}}px;
+  box-shadow: inset 0 0 0 1px @o_line;
+}
+
+button:hover {
+  box-shadow: inset 0 0 0 1px alpha(currentColor, 0.30);
+}
+
+button:checked {
+  box-shadow: inset 0 0 0 1px @accent_bg_color;
+}
+
+button.flat,
+button.flat:hover,
+button.flat:checked,
+button.suggested-action,
+button.suggested-action:hover,
+button.suggested-action:checked,
+button.destructive-action,
+button.destructive-action:hover,
+button.osd,
+button.circular,
+button.titlebutton,
+button.titlebutton:hover {
+  box-shadow: none;
+}
+
+button.circular,
+button.pill {
+  border-radius: {{r}}px;
+}
+
+/* ── Campi di testo ───────────────────────────────────────────────────── */
+
+entry,
+spinbutton {
+  border-radius: {{r}}px;
+  min-height: {{px:34}}px;
+  box-shadow: inset 0 0 0 1px @o_line;
+}
+
+entry:focus,
+spinbutton:focus-within {
+  box-shadow: inset 0 0 0 {{frame}}px @accent_bg_color;
+}
+
+selection,
+entry selection,
+textview text selection,
+.view:selected,
+.view:selected:focus {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+/* ── Liste e barre laterali ───────────────────────────────────────────── */
+
+list row:selected,
+.navigation-sidebar row:selected,
+row:selected,
+treeview.view:selected,
+iconview:selected {
+  background-color: @o_soft;
+  color: @window_fg_color;
+}
+
+list row:selected,
+.navigation-sidebar row:selected,
+row:selected {
+  box-shadow: inset {{frame}}px 0 0 0 @accent_bg_color;
+}
+
+list row,
+.navigation-sidebar row,
+row {
+  border-radius: {{r}}px;
+}
+
+frame > border,
+.frame {
+  border-radius: {{radius}}px;
+}
+
+/* ── Interruttori, cursori, barre ─────────────────────────────────────── */
+
+switch {
+  border-radius: {{r}}px;
+  background-color: @o_sunken;
+  box-shadow: inset 0 0 0 1px @o_line;
+}
+
+switch:checked {
+  background-color: @accent_bg_color;
+  box-shadow: inset 0 0 0 1px @accent_bg_color;
+}
+
+switch slider {
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+check,
+checkbutton check {
+  border-radius: {{r}}px;
+}
+
+check:checked,
+check:indeterminate,
+radio:checked {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+scale trough,
+scale trough highlight,
+progressbar trough,
+progressbar progress,
+levelbar trough block,
+scrollbar trough,
+scrollbar slider {
+  border-radius: 0;
+}
+
+scale trough {
+  min-height: {{frame}}px;
+  background-color: @o_line;
+}
+
+scale trough highlight,
+progressbar progress {
+  background-color: @accent_bg_color;
+}
+
+scale slider {
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+progressbar trough {
+  min-height: {{frame}}px;
+  background-color: @o_line;
+}
+
+scrollbar slider {
+  background-color: @o_faint;
+}
+
+scrollbar slider:hover,
+scrollbar slider:active {
+  background-color: @accent_bg_color;
+}
+
+/* ── Menu, popover, suggerimenti ──────────────────────────────────────── */
+
+menu,
+.menu,
+popover.background,
+popover {
+  border-radius: {{radius}}px;
+  box-shadow: 0 0 0 1px @o_line;
+}
+
+menuitem,
+modelbutton {
+  border-radius: {{r}}px;
+}
+
+menuitem:hover,
+modelbutton:hover,
+modelbutton:focus {
+  background-color: @o_raised;
+  box-shadow: inset {{frame}}px 0 0 0 @accent_bg_color;
+}
+
+tooltip,
+tooltip.background {
+  border-radius: {{r}}px;
+  box-shadow: 0 0 0 1px @o_line;
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 11px;/*{{/mono}}*/
+}
+
+/* ── Schede ───────────────────────────────────────────────────────────── */
+
+notebook > header > tabs > tab {
+  border-radius: 0;
+}
+
+notebook > header > tabs > tab:checked {
+  box-shadow: inset 0 -{{frame}}px 0 0 @accent_bg_color;
+}
+
+/*{{#mono}}*/
+notebook > header > tabs > tab label {
+  font-family: {{mono}};
+  font-size: 12px;
+}
+/*{{/mono}}*/
+
+/* ── Dettagli ─────────────────────────────────────────────────────────── */
+
+.osd,
+.app-notification,
+infobar {
+  border-radius: {{r}}px;
+}
+
+.dim-label,
+.caption {
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 11px;/*{{/mono}}*/
+}

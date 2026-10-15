@@ -1,0 +1,21 @@
+# Scorciatoie alla Omarchy, applicate da install.sh (salvo --no-keys).
+# Stesso formato di desktop.settings. Le scorciatoie dei workspace (Super+1…N, Super+Maiusc+1…N)
+# le genera l'installer in base a quanti workspace si sono scelti.
+
+# Super+Invio apre un terminale: in GNOME 50 non esiste più la chiave «terminal», quindi lo crea l'installer
+# come scorciatoia personalizzata (vedi install_terminal_binding in install.sh).
+
+# Super+W chiude la finestra (Alt+F4 resta); Super+F a schermo intero
+org.gnome.desktop.wm.keybindings | close             | ['<Super>w', '<Alt>F4']
+org.gnome.desktop.wm.keybindings | toggle-fullscreen | ['<Super>f']
+
+# Super+1…9 di GNOME lancia le app del dock, che qui non c'è: i numeri servono ai workspace
+org.gnome.shell.keybindings | switch-to-application-1 | @as []
+org.gnome.shell.keybindings | switch-to-application-2 | @as []
+org.gnome.shell.keybindings | switch-to-application-3 | @as []
+org.gnome.shell.keybindings | switch-to-application-4 | @as []
+org.gnome.shell.keybindings | switch-to-application-5 | @as []
+org.gnome.shell.keybindings | switch-to-application-6 | @as []
+org.gnome.shell.keybindings | switch-to-application-7 | @as []
+org.gnome.shell.keybindings | switch-to-application-8 | @as []
+org.gnome.shell.keybindings | switch-to-application-9 | @as []

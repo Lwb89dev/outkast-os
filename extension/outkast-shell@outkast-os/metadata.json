@@ -1,0 +1,8 @@
+{
+  "uuid": "outkast-shell@outkast-os",
+  "name": "Outkast Shell",
+  "description": "Barra con workspace numerati, palette di comandi al posto di Attività, e finestre che entrano e escono dai bordi con una cornice arancio che le segue.",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.outkast-shell",
+  "version": 1
+}

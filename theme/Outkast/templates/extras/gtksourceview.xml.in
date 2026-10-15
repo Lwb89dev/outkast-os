@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Outkast — schema di colori per GtkSourceView 5 (Editor di testo, Builder, GNOME Console non lo usa).
+  Generato da templates/extras/gtksourceview.xml.in: non modificare a mano.
+  Il segnale arancio è solo per le parole chiave e per il cursore; tutto il resto è grigio caldo
+  e i colori semantici dell'app (verde = stringhe, ambra = numeri, blu = tipi, rosa = costanti).
+-->
+<style-scheme id="{{scheme_id}}" name="Outkast {{scheme_title}}" version="1.0">
+  <author>Outkast OS</author>
+  <description>Mezzanotte piatta e un solo segnale arancio</description>
+  <metadata>
+    <property name="variant">{{scheme_name}}</property>
+  </metadata>
+
+  <color name="bg" value="{{bg}}"/>
+  <color name="surface" value="{{surface}}"/>
+  <color name="raised" value="{{raised}}"/>
+  <color name="line" value="{{line}}"/>
+  <color name="outline" value="{{outline}}"/>
+  <color name="fg" value="{{fg}}"/>
+  <color name="fg2" value="{{fg2}}"/>
+  <color name="fg3" value="{{fg3}}"/>
+  <color name="fg4" value="{{fg4}}"/>
+  <color name="accent" value="{{accent}}"/>
+  <color name="soft" value="{{soft}}"/>
+  <color name="on" value="{{on}}"/>
+  <color name="red" value="{{red}}"/>
+  <color name="green" value="{{green}}"/>
+  <color name="amber" value="{{amber}}"/>
+  <color name="blue" value="{{blue}}"/>
+  <color name="rose" value="{{rose}}"/>
+
+  <style name="text"                  foreground="fg" background="bg"/>
+  <style name="selection"             foreground="on" background="accent"/>
+  <style name="selection-unfocused"   background="soft"/>
+  <style name="cursor"                foreground="accent"/>
+  <style name="secondary-cursor"      foreground="fg3"/>
+  <style name="current-line"          background="surface"/>
+  <style name="line-numbers"          foreground="fg4" background="bg"/>
+  <style name="current-line-number"   foreground="accent" bold="true"/>
+  <style name="draw-spaces"           foreground="line"/>
+  <style name="background-pattern"    background="surface"/>
+  <style name="bracket-match"         foreground="accent" underline="single"/>
+  <style name="bracket-mismatch"      foreground="red" underline="error"/>
+  <style name="right-margin"          foreground="fg4" background="surface"/>
+  <style name="search-match"          foreground="on" background="amber"/>
+
+  <style name="def:comment"           foreground="fg3" italic="true"/>
+  <style name="def:shebang"           foreground="fg3" bold="true"/>
+  <style name="def:doc-comment-element" foreground="fg2" italic="true"/>
+  <style name="def:constant"          foreground="rose"/>
+  <style name="def:special-constant"  foreground="rose" bold="true"/>
+  <style name="def:string"            foreground="green"/>
+  <style name="def:special-char"      foreground="amber"/>
+  <style name="def:number"            foreground="amber"/>
+  <style name="def:identifier"        foreground="fg"/>
+  <style name="def:function"          foreground="fg"/>
+  <style name="def:builtin"           foreground="blue"/>
+  <style name="def:statement"         foreground="accent"/>
+  <style name="def:keyword"           foreground="accent"/>
+  <style name="def:preprocessor"      foreground="fg2"/>
+  <style name="def:type"              foreground="blue"/>
+  <style name="def:operator"          foreground="fg2"/>
+  <style name="def:error"             foreground="red" underline="error"/>
+  <style name="def:warning"           foreground="amber" underline="error"/>
+  <style name="def:note"              foreground="fg" background="soft" bold="true"/>
+  <style name="def:underlined"        underline="single"/>
+  <style name="def:heading"           foreground="accent" bold="true"/>
+  <style name="def:emphasis"          italic="true"/>
+  <style name="def:strong-emphasis"   bold="true"/>
+  <style name="def:link-text"         foreground="blue" underline="single"/>
+  <style name="def:link-destination"  foreground="blue" italic="true"/>
+  <style name="def:inline-code"       foreground="amber"/>
+  <style name="def:added-line"        foreground="green"/>
+  <style name="def:removed-line"      foreground="red"/>
+  <style name="def:changed-line"      foreground="amber"/>
+</style-scheme>

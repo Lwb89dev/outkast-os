@@ -1,0 +1,1472 @@
+/*
+ * Outkast — GNOME Shell
+ *
+ * Solo override: la Shell carica sempre il suo CSS di default sotto questo file.
+ *
+ * Mezzanotte piatta, filetti da 1px, un solo colore segnale. Niente ombre, niente vetro, niente
+ * pillole: i raggi sono quelli scelti nelle impostazioni (di serie, squadrato). Il monospace è
+ * un accento tecnico (orologio, numeri, didascalie), mai il testo che si legge.
+ *
+ * La Shell resta scura anche con lo schema chiaro (come la barra dei menu di macOS su uno sfondo scuro).
+ *
+ * Limiti di St (il motore CSS della Shell):
+ *  - niente linear-gradient(), niente var(), niente text-transform;
+ *  - un solo box-shadow per nodo: lo si usa per le sottolineature interne (inset) e per i fuochi;
+ *  - alcune regole di default usano !important sul box-shadow di :focus: dove serve si risponde uguale.
+ */
+
+stage {
+  color: {{fg}};
+}
+
+/* ── Barra superiore ─────────────────────────────────────────────────── */
+
+#panel {
+  background-color: {{bg}};
+  box-shadow: inset 0 -1px 0 0 {{outline}};
+  height: {{px:36}}px;
+  font-size: 12px;
+  font-weight: normal;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+  transition-duration: {{ms:200}};
+}
+
+#panel .panel-button {
+  color: {{fg2}};
+  border: none;
+  border-radius: 0;
+  font-weight: normal;
+  box-shadow: none;
+  -natural-hpadding: 10px;
+  -minimum-hpadding: 5px;
+  transition-duration: {{ms:140}};
+}
+
+#panel .panel-button:hover,
+#panel .panel-button:focus {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: none;
+}
+
+#panel .panel-button:active,
+#panel .panel-button:checked {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: inset 0 -{{frame}}px 0 0 {{accent}};
+}
+
+#panel .panel-button:active:hover,
+#panel .panel-button:checked:hover {
+  background-color: {{raised}};
+  box-shadow: inset 0 -{{frame}}px 0 0 {{accent}};
+}
+
+/* L'orologio apre il calendario: stesso trattamento, e nessuno dei suoi vecchi bordi. */
+#panel .panel-button.clock-display,
+#panel .panel-button.clock-display .clock {
+  color: {{fg}};
+  border: none !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  font-weight: normal;
+}
+
+#panel .panel-button.clock-display:hover,
+#panel .panel-button.clock-display:focus {
+  background-color: {{raised}} !important;
+}
+
+#panel .panel-button.clock-display:active,
+#panel .panel-button.clock-display:checked {
+  background-color: {{raised}} !important;
+  box-shadow: inset 0 -{{frame}}px 0 0 {{accent}} !important;
+}
+
+#panel .panel-button.clock-display .clock {
+  /*{{#mono}}*/letter-spacing: 0.3px;/*{{/mono}}*/
+}
+
+#panel .panel-button .system-status-icon {
+  padding: 0 4px;
+  margin: 0 2px;
+}
+
+/* Registrazione e condivisione dello schermo: restano segnali veri, ma piatti. */
+#panel .panel-button.screen-recording-indicator,
+#panel .panel-button.screen-sharing-indicator {
+  border: none;
+  border-radius: 0;
+  color: {{bg}};
+  background-color: {{red}};
+  box-shadow: none;
+}
+
+#panel .panel-button.screen-sharing-indicator {
+  background-color: {{amber}};
+}
+
+/* Schermata di blocco e di accesso: la barra torna trasparente. */
+#panel.unlock-screen,
+#panel.login-screen,
+#panel:overview {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* ── Barra: workspace e nome dell'app (estensione Outkast Shell) ──────── */
+
+.outkast-ws {
+  spacing: 0;
+  padding: 0 4px 0 0;
+}
+
+.outkast-ws-chip {
+  min-width: {{px:30}}px;
+  padding: 0 {{px:8}}px;
+  color: {{fg4}};
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: 12px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+  transition-duration: {{ms:160}};
+}
+
+.outkast-ws-chip.occupied {
+  color: {{fg2}};
+}
+
+.outkast-ws-chip:hover,
+.outkast-ws-chip:focus {
+  color: {{fg}};
+  background-color: {{raised}};
+}
+
+.outkast-ws-chip.active {
+  color: {{accent}};
+}
+
+/* la sottolineatura che scivola da un workspace all'altro */
+.outkast-ws-marker {
+  background-color: {{accent}};
+  height: {{frame}}px;
+}
+
+.outkast-appname {
+  color: {{fg3}};
+  padding: 0 {{px:12}}px 0 {{px:8}}px;
+  font-size: 12px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-appname-sep {
+  color: {{outline}};
+  padding: 0 2px 0 {{px:6}}px;
+  font-size: 12px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+/* ── Menu e popover ──────────────────────────────────────────────────── */
+
+.popup-menu-content,
+.candidate-popup-content {
+  padding: {{px:6}}px;
+  color: {{fg}};
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+  box-shadow: none;
+}
+
+.popup-menu,
+.popup-inactive-menu-item {
+  color: {{fg}};
+}
+
+.popup-menu-item {
+  color: {{fg}};
+  padding: {{px:7}}px {{px:10}}px;
+  border-radius: {{r}}px;
+  box-shadow: none;
+  transition-duration: {{ms:100}};
+}
+
+/* La barra del segnale è un'ombra interna: St non disegna i bordi per lato (border-left è ignorato). */
+.popup-menu-item:hover,
+.popup-menu-item:focus,
+.popup-menu-item:selected {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: inset {{frame}}px 0 0 0 {{accent}} !important;
+}
+
+.popup-menu-item:checked,
+.popup-menu-item:active {
+  color: {{fg}};
+  background-color: {{accent/16}};
+  box-shadow: inset {{frame}}px 0 0 0 {{accent}} !important;
+}
+
+.popup-menu-item:insensitive {
+  color: {{fg4}};
+  background-color: transparent;
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: {{line}};
+  height: 1px;
+  margin: {{px:6}}px 0;
+}
+
+.popup-sub-menu {
+  color: {{fg}};
+  background-color: {{sunken}};
+  border: 1px solid {{line}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+/* La freccetta del popover (boxpointer) non serve: i menu sono rettangoli. */
+.popup-menu-boxpointer,
+.candidate-popup-boxpointer {
+  -arrow-border-radius: {{radius}}px;
+  -arrow-background-color: {{surface}};
+  -arrow-border-width: 1px;
+  -arrow-border-color: {{outline}};
+  -arrow-base: 0px;
+  -arrow-rise: 0px;
+  -arrow-box-shadow: none;
+}
+
+/* ── Interruttori, cursori, spunte ───────────────────────────────────── */
+
+.toggle-switch {
+  background-color: {{sunken}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+  transition-duration: {{ms:140}};
+}
+
+.toggle-switch:checked {
+  background-color: {{accent}};
+  border-color: {{accent}};
+}
+
+.toggle-switch .handle,
+.toggle-switch:checked .handle {
+  background-color: {{fg}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+.toggle-switch:checked .handle {
+  background-color: {{on}};
+}
+
+.slider {
+  color: {{fg}};
+  -barlevel-height: {{frame}}px;
+  -barlevel-background-color: {{outline}};
+  -barlevel-active-background-color: {{accent}};
+  -barlevel-overdrive-color: {{red}};
+  -barlevel-overdrive-separator-width: 2px;
+  -slider-handle-radius: 6px;
+  -slider-handle-border-width: 0;
+}
+
+.check-box StBin {
+  border-radius: {{r}}px;
+  border: 1px solid {{outline}};
+  background-color: {{sunken}};
+  box-shadow: none;
+}
+
+.check-box:focus StBin,
+.check-box:hover StBin {
+  border-color: {{accent}};
+}
+
+.check-box:checked StBin {
+  background-color: {{accent}};
+  border-color: {{accent}};
+}
+
+.check-box:checked StIcon,
+.check-box:checked:focus StIcon {
+  color: {{on}};
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* ── Pulsanti e campi ────────────────────────────────────────────────── */
+
+.button {
+  color: {{fg}};
+  padding: {{px:7}}px {{px:16}}px;
+  background-color: transparent;
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+  transition-duration: {{ms:120}};
+}
+
+.button:hover {
+  color: {{fg}};
+  background-color: {{raised}};
+  border-color: {{fg4}};
+}
+
+.button:focus {
+  color: {{fg}};
+  background-color: {{raised}};
+  border-color: {{accent}};
+  box-shadow: none;
+}
+
+.button:active,
+.button:checked {
+  color: {{fg}};
+  background-color: {{sunken}};
+  border-color: {{accent}};
+}
+
+/* Il fuoco su un pulsante di dialogo è la cornice del segnale; quello di St usa l'accento di sistema (blu). */
+.modal-dialog .modal-dialog-button-box .modal-dialog-button:focus {
+  box-shadow: inset 0 0 0 {{frame}}px {{accent}} !important;
+}
+
+.button:insensitive {
+  color: {{fg4}};
+  background-color: transparent;
+  border-color: {{line}};
+}
+
+.button.default,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button.default {
+  color: {{on}};
+  background-color: {{accent}};
+  border: 1px solid {{accent}};
+}
+
+.button.default:hover,
+.button.default:focus,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button.default:hover,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button.default:focus {
+  color: {{on}};
+  background-color: {{hi}};
+  border-color: {{hi}};
+}
+
+.button.default:active,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button.default:active {
+  background-color: {{lo}};
+  border-color: {{lo}};
+}
+
+.button.default:focus,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button.default:focus {
+  color: {{on}};
+  background-color: {{accent}};
+  border-color: {{on}};
+}
+
+.icon-button {
+  color: {{fg2}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+.icon-button:hover,
+.icon-button:focus {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: none;
+}
+
+.icon-button:active,
+.icon-button:checked {
+  color: {{on}};
+  background-color: {{accent}};
+}
+
+StEntry {
+  color: {{fg}};
+  caret-color: {{accent}};
+  selection-background-color: {{accent}};
+  selected-color: {{on}};
+  background-color: {{sunken}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+  transition-duration: {{ms:120}};
+}
+
+StEntry:hover {
+  border-color: {{fg4}};
+}
+
+StEntry:focus {
+  background-color: {{sunken}};
+  border-color: {{accent}};
+  box-shadow: none !important;
+}
+
+StEntry StLabel.hint-text {
+  color: {{fg3}};
+}
+
+/* ── Impostazioni rapide ─────────────────────────────────────────────── */
+
+.quick-settings {
+  padding: {{px:16}}px;
+  border-radius: {{radius}}px;
+}
+
+.quick-toggle,
+.quick-toggle-has-menu {
+  color: {{fg}};
+  background-color: {{sunken}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+  transition-duration: {{ms:140}};
+}
+
+.quick-toggle:hover {
+  background-color: {{raised}};
+  border-color: {{fg4}};
+}
+
+.quick-toggle:focus {
+  border-color: {{accent}};
+  background-color: {{raised}};
+  box-shadow: none !important;
+}
+
+.quick-toggle:checked,
+.quick-toggle-has-menu:checked {
+  color: {{on}};
+  background-color: {{accent}};
+  border-color: {{accent}};
+}
+
+.quick-toggle:checked:hover,
+.quick-toggle:checked:focus {
+  background-color: {{hi}};
+  border-color: {{hi}};
+  box-shadow: none !important;
+}
+
+.quick-toggle .quick-toggle-subtitle {
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 0.82em;/*{{/mono}}*/
+}
+
+/* Un toggle con sottomenu è un involucro con tre pezzi (toggle, filetto, freccia): i pezzi dentro
+   restano senza sfondo né bordo, così la freccia non diventa una seconda scatola attaccata. */
+.quick-toggle-has-menu .quick-toggle,
+.quick-toggle-has-menu .quick-toggle:checked,
+.quick-toggle-has-menu .quick-toggle-menu-button,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.quick-toggle-has-menu .quick-toggle:hover,
+.quick-toggle-has-menu .quick-toggle:focus,
+.quick-toggle-has-menu .quick-toggle:checked:hover,
+.quick-toggle-has-menu .quick-toggle:checked:focus,
+.quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.quick-toggle-has-menu .quick-toggle-menu-button:focus,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:focus {
+  background-color: {{fg/10}};
+  border: none;
+  box-shadow: none !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  color: inherit;
+}
+
+.quick-toggle-has-menu .quick-toggle:ltr,
+.quick-toggle-has-menu .quick-toggle:ltr:hover,
+.quick-toggle-has-menu .quick-toggle:ltr:focus,
+.quick-toggle-has-menu .quick-toggle:ltr:checked,
+.quick-toggle-has-menu .quick-toggle:ltr:checked:hover,
+.quick-toggle-has-menu .quick-toggle:ltr:checked:focus,
+.quick-toggle-has-menu .quick-toggle-menu-button:ltr,
+.quick-toggle-has-menu .quick-toggle-menu-button:rtl,
+.quick-toggle-has-menu .quick-toggle:rtl {
+  border-radius: 0;
+}
+
+.quick-toggle-has-menu .quick-toggle-separator,
+.quick-toggle-has-menu:checked .quick-toggle-separator {
+  width: 1px;
+  background-color: {{fg/25}};
+}
+
+.quick-toggle-has-menu:checked .quick-toggle-separator {
+  background-color: {{on/30}};
+}
+
+.quick-toggle-menu {
+  color: {{fg}};
+  background-color: {{sunken}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+}
+
+.quick-slider .slider-bin {
+  border-radius: {{r}}px;
+}
+
+.quick-slider .slider-bin:focus {
+  background-color: {{raised}};
+  box-shadow: inset 0 0 0 1px {{accent}} !important;
+}
+
+.quick-slider .slider {
+  -barlevel-height: {{frame}}px;
+}
+
+/* ── Calendario, notifiche e messaggi ────────────────────────────────── */
+
+.datemenu-popover,
+.datemenu-calendar-column,
+.message-list {
+  color: {{fg}};
+}
+
+.calendar,
+.datemenu-today-button,
+.events-button,
+.world-clocks-button,
+.weather-button {
+  color: {{fg}};
+  background-color: {{sunken}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+.events-button:hover,
+.events-button:focus,
+.world-clocks-button:hover,
+.world-clocks-button:focus,
+.weather-button:hover,
+.weather-button:focus,
+.datemenu-today-button:hover,
+.datemenu-today-button:focus {
+  background-color: {{raised}};
+  border-color: {{fg4}};
+  box-shadow: none !important;
+}
+
+.datemenu-today-button .date-label,
+.calendar .calendar-month-label,
+.calendar .calendar-day-heading,
+.calendar .calendar-day,
+.calendar .calendar-week-number {
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.datemenu-today-button .day-label {
+  color: {{fg2}};
+  font-weight: normal;
+}
+
+.datemenu-today-button .date-label {
+  color: {{fg}};
+}
+
+.calendar .calendar-month-header .calendar-month-label {
+  color: {{fg}} !important;
+  border-radius: {{r}}px;
+  font-weight: normal;
+}
+
+.calendar .calendar-month-header .pager-button {
+  color: {{fg2}};
+  background-color: transparent;
+}
+
+.calendar .calendar-month-header .pager-button:hover,
+.calendar .calendar-month-header .pager-button:focus {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: none !important;
+}
+
+.calendar .calendar-day-heading {
+  color: {{fg3}};
+  font-weight: normal;
+  background-color: transparent;
+}
+
+.calendar .calendar-week-number {
+  color: {{fg4}};
+  background-color: transparent;
+  font-weight: normal;
+}
+
+.calendar .calendar-day {
+  color: {{fg}};
+  width: 2.5em;
+  height: 2.5em;
+  margin: 1px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-weight: normal;
+}
+
+.calendar .calendar-day:hover,
+.calendar .calendar-day:focus {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: none !important;
+}
+
+.calendar .calendar-day:active,
+.calendar .calendar-day:selected {
+  color: {{fg}};
+  border-color: {{accent}};
+  background-color: transparent;
+}
+
+.calendar .calendar-day.calendar-weekend {
+  color: {{fg3}};
+}
+
+.calendar .calendar-day.calendar-other-month,
+.calendar .calendar-day.calendar-other-month.calendar-weekend {
+  color: {{fg4}};
+}
+
+.calendar .calendar-day.calendar-today,
+.calendar .calendar-day.calendar-today:selected {
+  color: {{on}} !important;
+  background-color: {{accent}};
+  border-color: {{accent}};
+}
+
+.calendar .calendar-day.calendar-today:hover,
+.calendar .calendar-day.calendar-today:focus {
+  background-color: {{hi}};
+}
+
+.events-button .events-box .events-title,
+.world-clocks-button .world-clocks-header,
+.weather-button .weather-box .weather-header-box .weather-header {
+  color: {{fg2}};
+}
+
+.world-clocks-button .world-clocks-grid .world-clocks-time {
+  font-weight: normal;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.message {
+  color: {{fg}};
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+.message:hover,
+.message:focus {
+  background-color: {{raised}};
+  box-shadow: none !important;
+}
+
+.message:second-in-stack,
+.message:lower-in-stack {
+  background-color: {{sunken}};
+}
+
+.message .message-title {
+  color: {{fg}};
+}
+
+.message .message-body,
+.message .message-secondary-bin > .event-time {
+  color: {{fg2}};
+}
+
+.message .message-secondary-bin > .event-time,
+.message .message-header .message-source-title {
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 0.82em;/*{{/mono}}*/
+}
+
+.message-list-section-title,
+.message-list-clear-button {
+  color: {{fg3}};
+}
+
+/* Il banner che compare: stessa scatola piatta, con la barra del segnale a sinistra. */
+.notification-banner {
+  margin: {{px:8}}px;
+  box-shadow: inset {{frame}}px 0 0 0 {{accent}};
+}
+
+.message-notification-group .message-collapse-button,
+.message .message-header .message-expand-button,
+.message .message-header .message-close-button {
+  border-radius: {{r}}px;
+}
+
+.message-media-control,
+.message-media-control:hover {
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+/* ── Panoramica ──────────────────────────────────────────────────────── */
+
+.search-entry {
+  color: {{fg}};
+  background-color: {{sunken}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+.search-entry:focus {
+  background-color: {{sunken}};
+  border-color: {{accent}};
+  box-shadow: none !important;
+}
+
+.workspace-thumbnails .workspace-thumbnail {
+  border-radius: 0;
+  border: 1px solid {{outline}};
+  background-color: {{sunken}};
+}
+
+.workspace-thumbnail-indicator {
+  border-radius: 0;
+  border: {{frame}}px solid {{accent}};
+  box-shadow: none;
+}
+
+.overview-tile:hover .overview-icon,
+.overview-tile:focus .overview-icon,
+.grid-search-result:hover .overview-icon {
+  background-color: {{raised}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+}
+
+.app-folder {
+  border-radius: {{radius}}px;
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+}
+
+.app-folder-dialog {
+  border-radius: {{radius}}px;
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+}
+
+.app-well-app-running-dot,
+.app-grid-running-dot {
+  background-color: {{accent}};
+  border-radius: 0;
+  width: 8px;
+  height: {{frame}}px;
+  box-shadow: none;
+}
+
+#dash .dash-background,
+#dashtodockContainer #dash .dash-background {
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+  box-shadow: none;
+}
+
+#dash .dash-item-container .overview-tile .overview-icon,
+#dash .dash-item-container .show-apps .overview-icon {
+  background-color: transparent;
+  border-radius: {{r}}px;
+}
+
+#dash .dash-separator {
+  background-color: {{line}};
+}
+
+/* ── Suggerimenti, OSD, selettore finestre, dialoghi ─────────────────── */
+
+.dash-label,
+.window-caption,
+.screenshot-ui-tooltip {
+  color: {{fg}};
+  background-color: {{raised}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+  padding: {{px:5}}px {{px:9}}px;
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 0.9em;/*{{/mono}}*/
+}
+
+.osd-window {
+  color: {{fg}};
+  padding: {{px:16}}px {{px:24}}px;
+  border-radius: {{radius}}px;
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  box-shadow: none;
+}
+
+.osd-window .level {
+  -barlevel-height: {{frame}}px;
+  -barlevel-background-color: {{outline}};
+  -barlevel-active-background-color: {{accent}};
+  -barlevel-overdrive-color: {{red}};
+  border-radius: 0;
+}
+
+.osd-window .osd-monitor-label {
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.switcher-list {
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+  box-shadow: none;
+}
+
+.switcher-list .item-box {
+  color: {{fg2}};
+  border-radius: {{r}}px;
+  box-shadow: none;
+  transition-duration: {{ms:120}};
+}
+
+.switcher-list .item-box:hover,
+.switcher-list .item-box:selected {
+  color: {{fg}};
+  background-color: {{raised}};
+  box-shadow: inset 0 -{{frame}}px 0 0 {{accent}};
+}
+
+.switcher-list .thumbnail-box .thumbnail,
+.switcher-list .separator {
+  border-radius: 0;
+}
+
+.switcher-list .separator {
+  background-color: {{line}};
+}
+
+#switcher-popup-title,
+.switcher-list StLabel {
+  /*{{#mono}}*/font-family: {{mono}}; font-size: 0.9em;/*{{/mono}}*/
+}
+
+.modal-dialog {
+  color: {{fg}};
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+  box-shadow: none;
+}
+
+.modal-dialog .modal-dialog-button-box .modal-dialog-button {
+  border-radius: {{r}}px;
+}
+
+.message-dialog-title,
+.message-dialog-content .message-dialog-title {
+  color: {{fg}};
+}
+
+.message-dialog-description {
+  color: {{fg2}};
+}
+
+.run-dialog,
+.prompt-dialog {
+  border-radius: {{radius}}px;
+}
+
+.end-session-dialog-list,
+.dialog-list-box,
+.audio-selection-box {
+  border-radius: {{r}}px;
+}
+
+.tile-preview {
+  background-color: {{accent/10}};
+  border: {{frame}}px solid {{accent}};
+  border-radius: {{radius}}px;
+}
+
+.tile-preview-left.on-left,
+.tile-preview-right.on-right {
+  border-radius: {{radius}}px;
+}
+
+.resize-popup {
+  color: {{fg}};
+  background-color: {{raised}};
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+/* Indicatore di cambio workspace (Ctrl+Alt+frecce, gesti) */
+.workspace-switcher {
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+}
+
+.ws-switcher-indicator {
+  background-color: {{outline}};
+  border-radius: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.ws-switcher-indicator.active {
+  background-color: {{accent}};
+}
+
+/* ── Barre di scorrimento ────────────────────────────────────────────── */
+
+StScrollBar {
+  -st-hfade-offset: 0px;
+}
+
+StScrollBar StBin#trough {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+StScrollBar StButton#vhandle,
+StScrollBar StButton#hhandle {
+  background-color: {{fg4}};
+  border-radius: 0;
+  border: none;
+  margin: 0 2px;
+}
+
+StScrollBar StButton#vhandle:hover,
+StScrollBar StButton#hhandle:hover,
+StScrollBar StButton#vhandle:active,
+StScrollBar StButton#hhandle:active {
+  background-color: {{accent}};
+}
+
+/* ── Schermata di blocco ─────────────────────────────────────────────── */
+
+.unlock-dialog-clock-time,
+.unlock-dialog-clock-date {
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.unlock-dialog-clock-time {
+  font-weight: 200;
+  color: {{fg}};
+}
+
+.unlock-dialog-clock-date {
+  color: {{fg2}};
+}
+
+.login-dialog-prompt-entry,
+.unlock-dialog .login-dialog-prompt-entry {
+  border-radius: {{r}}px;
+}
+
+/* ── Cattura schermo ─────────────────────────────────────────────────── */
+
+.screenshot-ui-panel {
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+}
+
+.screenshot-ui-type-button:checked,
+.screenshot-ui-show-pointer-button:checked,
+.screenshot-ui-shot-cast-button:checked {
+  background-color: {{accent}};
+  color: {{on}};
+  border-radius: {{r}}px;
+}
+
+.screenshot-ui-capture-button .screenshot-ui-capture-button-circle {
+  background-color: {{accent}};
+}
+
+/* ── Raggi ──────────────────────────────────────────────────────────────
+   Il CSS di default arrotonda tutto (999px ovunque). Qui si porta ogni nodo al raggio scelto:
+   {{radius}} per i contenitori (finestre, menu, pannelli), {{r}} per i controlli.
+   Restano tondi di proposito solo gli avatar, i punti-pagina e i cursori del puntatore. */
+
+#panel .panel-button,
+#panel .panel-button.clock-display,
+#panel .panel-button.clock-display .clock,
+#panel .panel-button.screen-recording-indicator,
+#panel .panel-button.screen-sharing-indicator,
+#panel:overview .panel-button,
+#panel:overview .panel-button.clock-display,
+#panel:overview .panel-button.clock-display .clock,
+#panel:overview .panel-button.screen-recording-indicator,
+#panel:overview .panel-button.screen-sharing-indicator,
+#panel.unlock-screen .panel-button,
+#panel.unlock-screen .panel-button.clock-display,
+#panel.unlock-screen .panel-button.clock-display .clock,
+#panel.unlock-screen .panel-button.screen-recording-indicator,
+#panel.unlock-screen .panel-button.screen-sharing-indicator,
+#panel.login-screen .panel-button,
+#panel.login-screen .panel-button.clock-display,
+#panel.login-screen .panel-button.clock-display .clock,
+#panel.login-screen .panel-button.screen-recording-indicator,
+#panel.login-screen .panel-button.screen-sharing-indicator,
+#panel .panel-button#panelActivities .workspace-dot {
+  border-radius: 0;
+}
+
+.screenshot-ui-panel,
+.workspace-switcher,
+.switcher-list,
+.osd-window,
+.popup-menu-content,
+.candidate-popup-content,
+.datemenu-popover,
+.quick-settings,
+.modal-dialog,
+.message-view .message,
+.notification-banner,
+.workspace-background,
+.search-section-content,
+.app-folder,
+.app-folder-dialog,
+#dash .dash-background {
+  border-radius: {{radius}}px;
+}
+
+.dash-label,
+.window-caption,
+.screenshot-ui-tooltip,
+.resize-popup,
+.toggle-switch,
+.toggle-switch .handle,
+.message-list-controls .message-list-clear-button,
+.message .message-box .message-icon.message-themed-icon,
+.media-message .message-icon,
+.screenshot-ui-capture-button,
+.screenshot-ui-shot-cast-container,
+.screenshot-ui-shot-cast-button,
+.screenshot-ui-window-selector-check,
+.screenshot-ui-window-selector-window-border,
+.screenshot-ui-show-pointer-button,
+.screenshot-ui-type-button,
+.screenshot-ui-close-button,
+.quick-toggle,
+.quick-toggle-has-menu,
+.quick-toggle-has-menu .quick-toggle:ltr:last-child,
+.quick-toggle-has-menu .quick-toggle:rtl:last-child,
+.quick-toggle-menu,
+.quick-toggle-menu .header .icon,
+.quick-slider .slider-bin,
+.window-close,
+.system-action-icon,
+.page-navigation-arrow,
+.icon-button,
+.button,
+.notification-button,
+.search-entry,
+StEntry,
+.message,
+.message .message-header .message-expand-button,
+.message .message-header .message-close-button,
+.message-notification-group .message-collapse-button,
+.message-media-control,
+.calendar,
+.datemenu-today-button,
+.events-button,
+.events-button .events-box .events-list .event-box,
+.world-clocks-button,
+.weather-button,
+.calendar .calendar-week-number,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button,
+.popup-menu-item,
+.overview-tile,
+.grid-search-result,
+.list-search-result,
+.search-provider-icon,
+.app-folder-dialog .overview-tile,
+.app-folder-dialog .grid-search-result,
+#dash .dash-item-container .show-apps .overview-icon,
+#dash .dash-item-container .overview-tile .overview-icon,
+#dash .dash-item-container .grid-search-result .overview-icon,
+.switcher-list .item-box,
+.switcher-list .thumbnail,
+.audio-device-selection-dialog .audio-selection-box .audio-selection-device,
+.osd-monitor-label,
+.osd-break-countdown-label,
+.candidate-box,
+.word-suggestions StButton,
+.prompt-dialog .prompt-dialog-error-label,
+.prompt-dialog .prompt-dialog-info-label,
+.prompt-dialog .prompt-dialog-null-label,
+.end-session-dialog .end-session-dialog-battery-warning,
+.end-session-dialog .dialog-list-title,
+.conflicting-session-dialog-content .conflicting-session-dialog-desc-warning,
+.app-folder-dialog .folder-name-container .folder-name-entry,
+.parental-controls-shield .parental-controls-shield-button,
+.workspace-thumbnails .workspace-thumbnail {
+  border-radius: {{r}}px;
+}
+
+.popup-menu-item:checked {
+  border-radius: {{r}}px !important;
+}
+
+.popup-sub-menu,
+.popup-sub-menu .popup-menu-item:last-child,
+.popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child {
+  border-radius: {{r}}px;
+}
+
+.calendar .calendar-month-header .pager-button,
+.calendar .calendar-month-header .calendar-month-label,
+.calendar .calendar-day,
+.calendar .calendar-day-heading,
+.candidate-page-button-previous,
+.candidate-page-button-next,
+.page-navigation-hint.next:ltr,
+.page-navigation-hint.previous:rtl,
+.page-navigation-hint.previous:ltr,
+.page-navigation-hint.next:rtl {
+  border-radius: {{r}}px;
+}
+
+StScrollBar > .vhandle,
+StScrollBar > .hhandle {
+  border-radius: 0;
+}
+
+.ws-switcher-indicator,
+.workspace-thumbnail-indicator {
+  border-radius: 0;
+}
+
+.keyboard-key {
+  border-radius: {{r}}px;
+}
+
+/* ── Palette di comandi (estensione Outkast Shell) ───────────────────── */
+
+.outkast-scrim {
+  background-color: {{deep/60}};
+}
+
+.outkast-palette {
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px;
+  box-shadow: none;
+  color: {{fg}};
+}
+
+.outkast-palette-top {
+  padding: {{px:16}}px {{px:18}}px;
+  spacing: {{px:12}}px;
+  box-shadow: inset 0 -1px 0 0 {{line}};
+}
+
+.outkast-palette-prompt {
+  color: {{accent}};
+  font-size: 16px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-palette-entry {
+  color: {{fg}};
+  caret-color: {{accent}};
+  selection-background-color: {{accent}};
+  selected-color: {{on}};
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: 16px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+  box-shadow: none !important;
+}
+
+.outkast-palette-entry:focus {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+}
+
+.outkast-palette-entry StLabel.hint-text {
+  color: {{fg4}};
+}
+
+.outkast-palette-hint {
+  color: {{fg4}};
+  font-size: 11px;
+  padding: 2px 6px;
+  border: 1px solid {{outline}};
+  border-radius: {{r}}px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-palette-section {
+  color: {{fg3}};
+  font-size: 11px;
+  padding: {{px:14}}px {{px:18}}px {{px:4}}px {{px:18}}px;
+  /*{{#mono}}*/font-family: {{mono}}; letter-spacing: 0.6px;/*{{/mono}}*/
+}
+
+.outkast-palette-row {
+  color: {{fg}};
+  padding: {{px:8}}px {{px:18}}px;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  transition-duration: {{ms:80}};
+}
+
+.outkast-palette-rowbox {
+  spacing: {{px:12}}px;
+}
+
+.outkast-palette-row:hover {
+  background-color: {{sunken}};
+}
+
+.outkast-palette-row.selected {
+  background-color: {{raised}};
+  box-shadow: inset {{frame}}px 0 0 0 {{accent}};
+}
+
+.outkast-palette-title {
+  color: {{fg}};
+}
+
+.outkast-palette-row.selected .outkast-palette-title {
+  color: {{fg}};
+}
+
+.outkast-palette-match {
+  color: {{accent}};
+}
+
+.outkast-palette-meta {
+  color: {{fg3}};
+  font-size: 11px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-palette-desc {
+  padding-left: {{px:14}}px;
+}
+
+.outkast-palette-empty {
+  color: {{fg3}};
+  padding: {{px:22}}px {{px:18}}px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-palette-foot {
+  padding: {{px:9}}px {{px:18}}px;
+  spacing: {{px:18}}px;
+  box-shadow: inset 0 1px 0 0 {{line}};
+  background-color: {{sunken}};
+}
+
+.outkast-palette-foot StLabel {
+  color: {{fg3}};
+  font-size: 11px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-palette-calc {
+  color: {{accent}};
+  font-size: 20px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+/* ── Orbit: portale e pannello di tessere (estensione Outkast Shell) ───── */
+
+.outkast-portal {
+  background-color: {{surface}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px {{radius}}px 0 0;
+  padding: {{px:4}}px {{px:14}}px {{px:4}}px {{px:14}}px;
+  spacing: {{px:12}}px;
+  box-shadow: none;
+  transition-duration: {{ms:120}};
+}
+
+.outkast-portal:hover {
+  background-color: {{raised}};
+  border-color: {{accent/70}};
+}
+
+.outkast-portal-dots {
+  spacing: 5px;
+}
+
+.outkast-portal-dot {
+  width: 5px;
+  height: 5px;
+  background-color: {{fg4}};
+  border-radius: 0;
+}
+
+.outkast-portal-dot.occupied {
+  background-color: {{fg2}};
+}
+
+.outkast-portal-dot.active {
+  width: 8px;
+  height: 8px;
+  background-color: {{accent}};
+}
+
+.outkast-portal-label {
+  color: {{fg2}};
+  font-size: 11px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-orbit {
+  background-color: {{bg}};
+  border: 1px solid {{outline}};
+  border-radius: {{radius}}px {{radius}}px 0 0;
+  color: {{fg}};
+  box-shadow: none;
+}
+
+.outkast-orbit-head {
+  padding: {{px:16}}px 20px {{px:12}}px 20px;
+  spacing: {{px:12}}px;
+  box-shadow: inset 0 -1px 0 0 {{line}};
+}
+
+.outkast-orbit-title {
+  color: {{fg}};
+  font-size: 14px;
+  /*{{#mono}}*/font-family: {{mono}}; letter-spacing: 0.4px;/*{{/mono}}*/
+}
+
+.outkast-orbit-hint {
+  color: {{fg4}};
+  font-size: 11px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-orbit-back {
+  color: {{fg2}};
+  font-size: 18px;
+  padding: 0 {{px:8}}px;
+  border: 1px solid transparent;
+  border-radius: {{r}}px;
+}
+
+.outkast-orbit-back:hover {
+  color: {{fg}};
+  background-color: {{raised}};
+  border-color: {{outline}};
+}
+
+.outkast-orbit-content {
+  padding: 2px 20px 18px 20px;
+}
+
+.outkast-orbit-section {
+  color: {{fg3}};
+  font-size: 11px;
+  padding: {{px:14}}px 0 {{px:6}}px 0;
+  /*{{#mono}}*/font-family: {{mono}}; letter-spacing: 0.6px;/*{{/mono}}*/
+}
+
+.outkast-orbit-row {
+  spacing: 8px;
+  padding-bottom: 8px;
+}
+
+.outkast-orbit-tile {
+  background-color: {{surface}};
+  border: 1px solid {{line}};
+  border-radius: {{r}}px;
+  padding: {{px:12}}px {{px:14}}px {{px:10}}px {{px:14}}px;
+  box-shadow: none;
+  transition-duration: {{ms:100}};
+}
+
+.outkast-orbit-tile.selected {
+  background-color: {{raised}};
+  box-shadow: inset 0 -{{frame}}px 0 0 {{accent}};
+}
+
+.outkast-orbit-tile.current {
+  background-color: {{accent/8}};
+  border-color: {{accent}};
+}
+
+.outkast-orbit-tile.current.selected {
+  background-color: {{accent/16}};
+}
+
+.outkast-orbit-tile-title {
+  color: {{fg}};
+  font-size: 13px;
+  padding-top: {{px:10}}px;
+}
+
+.outkast-orbit-meta {
+  color: {{fg3}};
+  font-size: 10px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-orbit-badge {
+  color: {{accent}};
+  font-size: 11px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-orbit-num {
+  color: {{fg}};
+  font-size: 22px;
+  height: 28px;
+  /*{{#mono}}*/font-family: {{mono}};/*{{/mono}}*/
+}
+
+.outkast-orbit-tile.current .outkast-orbit-num {
+  color: {{accent}};
+}
+
+.outkast-orbit-symbolic {
+  color: {{fg2}};
+}
+
+/* ── Cornice della finestra attiva e cuciture (estensione Outkast Shell) ─ */
+
+.outkast-frame {
+  border: {{frame}}px solid {{accent}};
+  border-radius: {{radius}}px;
+  background-color: transparent;
+}
+
+.outkast-seam {
+  background-color: {{accent}};
+}

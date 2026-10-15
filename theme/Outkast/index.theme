@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Outkast
+Comment=Mezzanotte piatta e un solo segnale arancio: un desktop GNOME in stile Omarchy con la palette di Outkast
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Outkast
+IconTheme=Tela-orange-dark

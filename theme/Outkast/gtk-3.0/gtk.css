@@ -1,0 +1,11 @@
+/*
+ * Outkast — GTK 3 (variante chiara)
+ *
+ * Base: adw-gtk3 (porting di libadwaita su GTK3), che l'installer copia qui come
+ * adw-gtk3.css. Sopra: colori nominati e overlay Outkast.
+ * Se adw-gtk3.css mancasse, GTK ignora l'import e si usa Adwaita di GTK.
+ */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained.css");
+@import url("adw-gtk3.css");
+@import url("outkast-light.css");
+@import url("outkast-common.css");

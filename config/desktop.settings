@@ -1,0 +1,17 @@
+# Impostazioni del desktop applicate da install.sh (sempre).
+# Formato: schema | chiave | valore (testo GVariant, come per `gsettings set`)
+# Le righe vuote e quelle che iniziano con # sono ignorate. Se uno schema non esiste
+# (app non installata) la riga viene saltata. Prima di cambiare ogni chiave l'installer
+# salva il valore originale: ./uninstall.sh lo rimette.
+
+# Orologio: giorno e data nella barra (l'orologio è in monospace)
+org.gnome.desktop.interface | clock-show-weekday | true
+org.gnome.desktop.interface | clock-show-date    | true
+org.gnome.desktop.interface | enable-animations  | true
+
+# Pulsanti finestra: tre quadrati piatti a destra
+org.gnome.desktop.wm.preferences | button-layout | ':minimize,maximize,close'
+
+# Le finestre nuove nascono al centro: l'entrata dal bordo parte da lì
+org.gnome.mutter | center-new-windows | true
+org.gnome.mutter | edge-tiling        | true

@@ -1,0 +1,16 @@
+# Generati dall'installer o dal banco di prova, mai a mano
+Tela-orange*/
+Tela-gold*/
+Tela-*/
+theme/Outkast/gtk-4.0/outkast.css
+theme/Outkast/gtk-3.0/outkast-common.css
+theme/Outkast/gtk-3.0/outkast-light.css
+theme/Outkast/gtk-3.0/outkast-dark.css
+theme/Outkast/gnome-shell/gnome-shell.css
+theme/Outkast/extras/
+# adw-gtk3 e libadwaita.css: scaricati dall'installer
+theme/Outkast/gtk-3.0/adw-gtk3*.css
+theme/Outkast/gtk-3.0/assets/
+theme/Outkast/gtk-4.0/libadwaita*.css
+theme/Outkast/gtk-4.0/assets/
+extension/*/schemas/gschemas.compiled

@@ -1,0 +1,10 @@
+/*
+ * Outkast — GTK 4, tema completo per le app GTK4 che NON usano libadwaita.
+ *
+ * Base: la copia di libadwaita adattata da adw-gtk3 (la scarica l'installer);
+ * sopra, gli override di Outkast. Le app libadwaita ignorano questo file e leggono
+ * invece ~/.config/gtk-4.0/gtk.css, che l'installer fa puntare direttamente a outkast.css.
+ */
+@import url("libadwaita.css");
+@import url("libadwaita-tweaks.css");
+@import url("outkast.css");
