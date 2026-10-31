@@ -184,10 +184,17 @@ dialog-host > dialog.alert sheet {
   border-radius: {{radius}}px;
 }
 
-/* Foglietti sovrapposti (bottom sheet, floating sheet) */
+/* Foglietti sovrapposti (AdwDialog fluttuante, bottom sheet): raggio del tema,
+   un filetto al posto dell'alone e dell'orlo chiaro di libadwaita. */
 floating-sheet > sheet,
 bottom-sheet > sheet {
+  border-radius: {{radius}}px;
   box-shadow: 0 0 0 1px var(--o-line);
+  outline: none;
+}
+
+bottom-sheet > sheet > outline {
+  box-shadow: none;
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -394,15 +401,41 @@ text > selection {
   color: var(--accent-fg-color);
 }
 
-/* Il foco da tastiera è la cornice del segnale, non un alone sfumato. */
-*:focus-visible {
+/* Il foco da tastiera è la cornice del segnale, non un alone sfumato.
+   Solo il widget che ha davvero il foco (:focus): in GTK4 :focus-visible
+   sale anche su tutti gli antenati, e senza :focus ogni contenitore (finestra,
+   barra del titolo, riquadri del dialogo…) si prende la sua cornice annidata. */
+*:focus:focus-visible {
   outline: {{frame}}px solid var(--accent-bg-color);
   outline-offset: -{{frame}}px;
 }
 
-entry:focus-visible,
-spinbutton:focus-visible,
-searchentry:focus-visible {
+/* Su un pulsante già pieno di segnale l'anello arancio non si vedrebbe: usa il colore del testo. */
+button.suggested-action:focus:focus-visible,
+button.opaque.suggested-action:focus:focus-visible,
+menubutton.suggested-action > button:focus:focus-visible {
+  outline-color: var(--accent-fg-color);
+}
+
+button.destructive-action:focus:focus-visible,
+menubutton.destructive-action > button:focus:focus-visible {
+  outline-color: var(--destructive-fg-color);
+}
+
+/* Contenitori e campi di testo: il foco lo mostrano da soli (o non lo mostrano). */
+window:focus:focus-visible,
+dialog:focus:focus-visible,
+sheet:focus:focus-visible,
+popover:focus:focus-visible,
+headerbar:focus:focus-visible,
+scrolledwindow:focus:focus-visible,
+viewport:focus:focus-visible,
+text:focus:focus-visible,
+textview:focus:focus-visible,
+entry:focus:focus-visible,
+spinbutton:focus:focus-visible,
+searchentry:focus:focus-visible,
+modelbutton:focus:focus-visible {
   outline: none;
 }
 

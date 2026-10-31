@@ -40,6 +40,11 @@ The Shell stays dark in light mode (like a menu bar over a dark wallpaper); appl
 - Signal marks are drawn with `box-shadow: inset` (a 2px bar on the left of a selected row, an underline under the
   current workspace). That is deliberate: St (the Shell's CSS engine) ignores `border-left` and friends, only a
   uniform `border` is drawn.
+- Keyboard focus is a single 2px signal ring on the widget that actually holds the focus, never on its containers
+  (in GTK4 `:focus-visible` also matches every ancestor, so the rule is written `:focus:focus-visible`). Entries draw
+  their own ring, menu items get the raised background and the left bar, and a button already filled with the signal
+  draws its ring in the text color.
+- Dialogs (`AdwDialog` floating sheets) follow the same corner radius as windows.
 - "Compact" density (default) tightens header bars, buttons and rows by ~20%.
 
 ## 4. Typography
